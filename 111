@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+void main() {
+    // 数据
+    vector<double> x = { 0, 10, 20, 30, 40, 50 }; // 浓度
+    vector<double> y = { 0, 0.2, 0.4, 0.6, 0.8, 1 }; // 吸光度
+
+    // 拟合
+    double sum_x = 0; // x的和
+    double sum_y = 0; // y的和
+    double sum_xy = 0; // xy的和
+    double sum_x2 = 0; // x^2的和
+    int n = x.size(); // 数据个数
+
+    for (int i = 0; i < n; i++) {
+        sum_x += x[i];
+        sum_y += y[i];
+        sum_xy += x[i] * y[i];
+        sum_x2 += x[i] * x[i];
+    }
+
+    double a1 = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x); // 斜率
+    double b1 = (sum_y - a1 * sum_x) / n; // 截距
+
+    // 输出拟合函数
+    cout << "拟合函数为：y = " << a1 << "x + " << b1 << endl;
+    // 测量值
+    vector<double> a = { 0.174, 0.163, 0.168, 0.123, 0.125, 0.120 }; // A组吸光度
+    vector<double> b = { 0.135, 0.101, 0.117, 0.108, 0.0994, 0.102 }; // B组吸光度
+    vector<double> c = { 0.182, 0.169, 0.169, 0.129, 0.129, 0.120 }; // C组吸光度
+    vector<double> d = { 0.117, 0.228, 0.117, 0.120, 0.113, 0.113 }; // D组吸光度
+    vector<double> e = { 0.189, 0.183, 0.173, 0.174, 0.130, 0.162 }; // E组吸光度
+    vector<double> f = { 0.122, 0.108, 0.117, 0.116, 0.120, 0.131 }; // F组吸光度
+    vector<double> g = { 0.186, 0.174, 0.177, 0.126, 0.194, 0.127 }; // G组吸光度
+
+    // 计算浓度
+    vector<double> a_c; // A组浓度
+    vector<double> b_c; // B组浓度
+    vector<double> c_c; // C组浓度
+    vector<double> d_c; // D组浓度
+    vector<double> e_c; // E组浓度
+    vector<double> f_c; // F组浓度
+    vector<double> g_c; // G组浓度
+
+    for (int i = 0; i < n; i++) {
+        a_c.push_back((a[i] - b1) / a1); // 根据拟合函数计算浓度
+        b_c.push_back((b[i] - b1) / a1);
+        c_c.push_back((c[i] - b1) / a1);
+        d_c.push_back((d[i] - b1) / a1);
+        e_c.push_back((e[i] - b1) / a1);
+        f_c.push_back((f[i] - b1) / a1);
+        g_c.push_back((g[i] - b1) / a1);
+    }
+
+    // 输出结果
+    cout << "A组浓度:";
+    for (double x : a_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "B组浓度:";
+    for (double x : b_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "C组浓度:";
+    for (double x : c_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "D组浓度:";
+    for (double x : d_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "E组浓度:";
+    for (double x : e_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "F组浓度:";
+    for (double x : f_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    cout << "G组浓度:";
+    for (double x : g_c) {
+        cout << x << " ";
+    }
+    cout << endl;
+}
